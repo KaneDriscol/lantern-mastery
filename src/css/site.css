@@ -3,7 +3,7 @@
    Do not redefine colors/type/spacing here — add them to
    "Design System/tokens/*.css" instead so the whole site stays in sync. */
 
-@import url('/design-system/styles.css');
+@import url('../design-system/styles.css');
 
 * { box-sizing: border-box; }
 
