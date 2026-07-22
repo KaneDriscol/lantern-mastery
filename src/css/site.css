@@ -733,6 +733,292 @@ body {
   border: 0;
 }
 
+/* ---------- Resource templates (drillcard, breakdown, sourcecard, practicelog, principle) ---------- */
+
+.post-body .sc-drillcard,
+.post-body .sc-breakdown,
+.post-body .sc-sourcecard,
+.post-body .sc-practicelog,
+.post-body .sc-principle { margin: 32px 0; }
+
+.sc-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+
+.sc-print-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  color: inherit;
+  background: transparent;
+  border: 1px solid currentColor;
+  opacity: 0.65;
+  border-radius: var(--radius-pill);
+  padding: 6px 14px;
+  cursor: pointer;
+}
+.sc-print-btn:hover { opacity: 1; }
+
+/* drillcard — 1a, light card with a level badge and closing line */
+.sc-drillcard {
+  background: var(--canvas);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+}
+.sc-drillcard-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 14px; }
+.sc-drillcard-badge {
+  font-family: var(--font-sans);
+  font-size: var(--caption-upper-size);
+  font-weight: var(--caption-upper-weight);
+  letter-spacing: var(--caption-upper-tracking);
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--surface-card);
+  padding: 4px 11px;
+  border-radius: var(--radius-pill);
+}
+.sc-drillcard-context { font-family: var(--font-sans); font-size: var(--caption-size); font-weight: 500; color: var(--muted); }
+.sc-drillcard .sc-drillcard-title {
+  font-family: var(--font-serif-display);
+  font-size: var(--display-sm-size);
+  line-height: var(--display-sm-line);
+  letter-spacing: var(--display-sm-tracking);
+  color: var(--ink);
+  margin: 0 0 12px;
+}
+.sc-drillcard-body { font-size: 15px; line-height: 1.55; color: var(--body); }
+.sc-drillcard-body > * + * { margin-top: 16px; }
+.sc-drillcard-body strong { color: var(--ink); }
+.sc-drillcard-body blockquote:last-child {
+  border-top: 1px solid var(--hairline);
+  border-left: none;
+  margin: 0;
+  padding: 18px 0 0;
+  font-family: var(--font-serif-display);
+  font-size: 20px;
+  line-height: 1.35;
+  font-style: italic;
+  color: var(--ink);
+}
+
+/* breakdown — 1b, dark numbered step-by-step card */
+.sc-breakdown {
+  background: var(--surface-dark);
+  color: var(--on-dark);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+}
+.sc-breakdown-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 14px; }
+.sc-breakdown-badge {
+  font-family: var(--font-sans);
+  font-size: var(--caption-upper-size);
+  font-weight: var(--caption-upper-weight);
+  letter-spacing: var(--caption-upper-tracking);
+  text-transform: uppercase;
+  color: var(--on-dark);
+  background: var(--surface-dark-elevated);
+  padding: 4px 11px;
+  border-radius: var(--radius-pill);
+}
+.sc-breakdown-context { font-family: var(--font-sans); font-size: var(--caption-size); font-weight: 500; color: var(--on-dark-soft); }
+.sc-breakdown .sc-breakdown-title {
+  font-family: var(--font-serif-display);
+  font-size: var(--display-sm-size);
+  line-height: var(--display-sm-line);
+  letter-spacing: var(--display-sm-tracking);
+  color: var(--on-dark);
+  margin: 0 0 18px;
+}
+.sc-breakdown-body ol { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 18px; }
+.sc-breakdown-body ol li { display: flex; gap: 16px; align-items: flex-start; font-size: 14px; line-height: 1.55; color: var(--on-dark-soft); }
+/* An explicit element, not text auto-boxed by the browser — the "Save as
+   PNG" export (html2canvas) mishandles that anonymous flex item and splits
+   the strong lead-in and the rest of the sentence into separate columns. */
+.sc-breakdown-text { flex: 1 1 auto; min-width: 0; }
+/* A real element, not ::before + counter() — the "Save as PNG" export
+   (html2canvas) doesn't reliably render generated pseudo-element content. */
+.sc-breakdown-num {
+  flex: 0 0 auto;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-pill);
+  background: var(--primary);
+  color: var(--on-primary);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sc-breakdown-body strong { color: var(--on-dark); }
+
+/* sourcecard — 1c, light card with a highlighted passage box */
+.sc-sourcecard {
+  background: var(--canvas);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+}
+.sc-sourcecard-badge {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: var(--caption-upper-size);
+  font-weight: var(--caption-upper-weight);
+  letter-spacing: var(--caption-upper-tracking);
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--surface-card);
+  padding: 4px 11px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 16px;
+}
+.sc-sourcecard .sc-sourcecard-title {
+  font-family: var(--font-serif-display);
+  font-size: 24px;
+  line-height: 1.25;
+  letter-spacing: -0.2px;
+  color: var(--ink);
+  margin: 0 0 4px;
+}
+.sc-sourcecard-meta { font-family: var(--font-sans); font-size: var(--caption-size); font-weight: 500; color: var(--muted); margin-bottom: 22px; }
+.sc-sourcecard-passage { background: var(--surface-soft); border-radius: var(--radius-md); padding: 22px 24px; }
+.sc-sourcecard-passage blockquote {
+  margin: 0 0 18px;
+  padding: 0;
+  border: none;
+  font-family: var(--font-serif-display);
+  font-size: 20px;
+  line-height: 1.4;
+  font-style: italic;
+  color: var(--ink);
+}
+.sc-sourcecard-passage > *:last-child { margin-bottom: 0; }
+.sc-sourcecard-passage p { font-size: 15px; line-height: 1.55; color: var(--body); margin: 0; }
+.sc-sourcecard-teaches-label {
+  font-family: var(--font-sans);
+  font-size: var(--caption-upper-size);
+  font-weight: var(--caption-upper-weight);
+  letter-spacing: var(--caption-upper-tracking);
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 20px 0 6px;
+}
+.sc-sourcecard-teaches { font-size: 15px; line-height: 1.55; color: var(--body); margin: 0; }
+.sc-sourcecard-link { display: inline-block; margin-top: 14px; font-family: var(--font-sans); font-size: 14px; font-weight: 500; color: var(--primary); }
+.sc-sourcecard-link:hover { color: var(--primary-active); }
+
+/* practicelog — 1d, printable checklist and blank fields */
+.sc-practicelog {
+  background: var(--canvas);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+}
+.sc-practicelog-badge {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: var(--caption-upper-size);
+  font-weight: var(--caption-upper-weight);
+  letter-spacing: var(--caption-upper-tracking);
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--surface-card);
+  padding: 4px 11px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 16px;
+}
+.sc-practicelog .sc-practicelog-title {
+  font-family: var(--font-serif-display);
+  font-size: var(--display-sm-size);
+  line-height: var(--display-sm-line);
+  letter-spacing: var(--display-sm-tracking);
+  color: var(--ink);
+  margin: 0 0 8px;
+}
+.sc-practicelog-intro { font-size: 15px; line-height: 1.55; color: var(--body); margin: 0 0 24px; }
+.sc-practicelog-intro > * + * { margin-top: 12px; }
+.sc-practicelog-label {
+  font-family: var(--font-sans);
+  font-size: var(--caption-upper-size);
+  font-weight: var(--caption-upper-weight);
+  letter-spacing: var(--caption-upper-tracking);
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+.sc-practicelog-checks ul { list-style: none; padding: 0; margin: 0 0 26px; display: flex; flex-direction: column; gap: 12px; }
+.sc-practicelog-checks li { display: flex; gap: 12px; align-items: center; font-size: 15px; color: var(--body); }
+.sc-practicelog-check-text { flex: 1 1 auto; min-width: 0; }
+/* A real element, not ::before — the "Save as PNG" export (html2canvas)
+   doesn't reliably render generated pseudo-element content. */
+.sc-practicelog-check {
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--muted-soft);
+  border-radius: 4px;
+}
+.sc-practicelog-fields { display: flex; gap: 24px; margin-bottom: 26px; }
+.sc-practicelog-field { flex: 1; }
+.sc-practicelog-field-label {
+  font-family: var(--font-sans);
+  font-size: var(--caption-upper-size);
+  font-weight: var(--caption-upper-weight);
+  letter-spacing: var(--caption-upper-tracking);
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+.sc-practicelog-field-rule { height: 1px; background: var(--muted-soft); }
+.sc-practicelog-notes { display: flex; flex-direction: column; gap: 22px; }
+.sc-practicelog-line { height: 1px; background: var(--hairline); }
+
+/* principle — 1e, big statement on the primary color */
+.sc-principle {
+  background: var(--primary);
+  color: var(--on-primary);
+  border-radius: var(--radius-lg);
+  padding: 40px 36px;
+}
+.sc-principle-label {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: var(--caption-upper-size);
+  font-weight: var(--caption-upper-weight);
+  letter-spacing: var(--caption-upper-tracking);
+  text-transform: uppercase;
+  color: var(--on-primary);
+  opacity: 0.75;
+  margin-bottom: 18px;
+}
+.sc-principle-statement {
+  font-family: var(--font-serif-display);
+  font-size: 32px;
+  line-height: 1.15;
+  letter-spacing: -0.4px;
+  color: var(--on-primary);
+  margin: 0 0 16px;
+}
+.sc-principle-body { font-size: 16px; line-height: 1.55; color: var(--on-primary); opacity: 0.92; max-width: 560px; }
+.sc-principle-body > * + * { margin-top: 12px; }
+
+/* Printing a single resource-template card on its own page.
+   #sc-print-root holds a clone of just that card and is appended straight
+   to <body> (see src/js/print.js), so hiding its siblings can't accidentally
+   hide an ancestor of the card itself — that's what caused a stack of
+   blank pages before: hidden elements still took up their full layout
+   height, so the page kept printing empty space. */
+#sc-print-root { display: none; }
+
+@media print {
+  body.sc-printing > *:not(#sc-print-root) { display: none !important; }
+  body.sc-printing #sc-print-root { display: block !important; margin: 0; }
+  body.sc-printing #sc-print-root > * { max-width: 720px; margin: 0 auto; }
+}
+
 /* ---------- Notebook index (full post list) ---------- */
 
 .notebook { background: var(--canvas); padding: 72px 0 96px; }

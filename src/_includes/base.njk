@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{% if title %}{{ title }} — {{ site.title }}{% else %}{{ site.title }} — {{ site.tagline }}{% endif %}</title>
 {% if description %}<meta name="description" content="{{ description }}">{% endif %}
-<link rel="stylesheet" href="{{ '/css/site.css' | url }}">
+<link rel="stylesheet" href="{{ '/css/site.css' | cacheBust | url }}">
+<script src="{{ '/js/print.js' | cacheBust | url }}" defer></script>
 </head>
 <body>
 
