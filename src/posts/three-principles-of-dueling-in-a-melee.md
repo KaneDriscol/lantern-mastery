@@ -125,42 +125,11 @@ Yes! You don’t have to fight everyone you come across in a melee. Especially o
 
 {% practicelog "Melee Duels", 4, true %}
 
-How does it handle sentences
+In order to practice, you need to put yourself into these situations and recognize it.
 
 - Recognize you are in dueling situation during a melee
 - Approach the fight at an angle. Pay attention to what happens
 - Call yourself out when you keep moving or settle in
-- Turn a duel back into a melee, three times
+- Turn a duel back into a melee
 
 {% endpracticelog %}
-
-{% principle "The bind is a conversation, not a contest.", true %}
-Most beginners try to win the moment two blades touch. The older idea is
-quieter: stay soft, listen for a heartbeat, and let their strength choose
-your answer for you.
-{% endprinciple %}
-
-{% sourcecard "Fior di Battaglia", "Fiore dei Liberi · c. 1410 · trans. Leoni", "What this passage asks of the body, and how it shows up in the drill.", "https://example.com/source", "Where to read the full source", true %}
-> Original passage, in the source language.
-
-Your working translation, in your own words.
-{% endsourcecard %}
-
-{% breakdown "Winding at the bind", "Four counts", true %}
-1. **Meet the bind.** Catch the incoming blade and stay soft.
-2. **Read the pressure.** If they push hard, you go around.
-3. **Wind the short edge up.** Your hands lift; your feet stay honest.
-4. **Finish or wind again.** Never force the door that is already shut.
-{% endbreakdown %}
-
-{% drillcard "The Zwerchau, from the roof", "Foundational", "Longsword · solo or partner", true %}
-A first pass at the horizontal cut that answers a blow from above.
-
-**The setup.** Stand in vom Tag with the sword resting at your right shoulder.
-
-**Reps and tempo.** Ten cuts per side, slow enough that you can feel the edge turn.
-
-**Watch for.** Dropping the point too early, leading with the shoulders.
-
-> Cut and cover in the same motion. If you can tell where one ends, slow down.
-{% enddrillcard %}
