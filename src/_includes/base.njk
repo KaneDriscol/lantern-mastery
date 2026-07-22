@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% if title %}{{ title }} — {{ site.title }}{% else %}{{ site.title }} — {{ site.tagline }}{% endif %}</title>
+{% if description %}<meta name="description" content="{{ description }}">{% endif %}
+<link rel="stylesheet" href="{{ '/css/site.css' | url }}">
+</head>
+<body>
+
+<header class="top-nav container">
+  <a class="brand" href="{{ '/' | url }}">
+    {% include "lantern-mark.njk" %}
+    <span>{{ site.title }}</span>
+  </a>
+  <nav class="nav-links">
+    {% for category in site.categories %}
+      {% set catUrl = "/tag/" + (category | catSlug) + "/" %}
+      <a href="{{ catUrl | url }}"{% if page.url == catUrl %} class="active"{% endif %}>{{ category }}</a>
+    {% endfor %}
+  </nav>
+</header>
+
+{{ content | safe }}
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-cols">
+      <div class="footer-brand-col">
+        <div class="brand">
+          {% set size = 20 %}{% include "lantern-mark.njk" %}
+          <span>{{ site.title }}</span>
+        </div>
+        <p class="footer-tagline">{{ site.tagline }}</p>
+      </div>
+      <div>
+        <div class="col-title">Categories</div>
+        {% for category in site.categories %}
+          <a href="{{ ('/tag/' + (category | catSlug) + '/') | url }}">{{ category }}</a>
+        {% endfor %}
+      </div>
+    </div>
+    {% if site.quote %}
+    <blockquote class="footer-quote">
+      <p>&ldquo;{{ site.quote }}&rdquo;</p>
+      <cite>{{ site.quoteAuthor }}</cite>
+    </blockquote>
+    {% endif %}
+  </div>
+</footer>
+
+</body>
+</html>

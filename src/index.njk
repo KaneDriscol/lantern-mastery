@@ -1,0 +1,29 @@
+---
+layout: base.njk
+# The homepage: a short intro, then every note newest-first.
+# The list is generated from your posts — you never edit it by hand.
+---
+<section class="home-intro">
+  <div class="container">
+    <h1>The Lantern</h1>
+    <p>A running notebook of thoughts and lessons in my pursuit of Mastery.</p>
+  </div>
+</section>
+
+<section class="notebook">
+  <div class="container">
+    <div class="notebook-list">
+      {% set posts = collections.post | reverse %}
+      {% for post in posts %}
+      <a href="{{ post.url | url }}" class="notebook-entry">
+        {% if post.data.tag %}<div class="note-tag">{{ post.data.tag }}</div>{% endif %}
+        <h2>{{ post.data.title }}</h2>
+        {% if post.data.excerpt %}<p class="note-excerpt">{{ post.data.excerpt }}</p>{% endif %}
+        <div class="note-date">{{ post.date | readableDate }}{% if post.data.readingTime %} · {{ post.data.readingTime }}{% endif %}</div>
+      </a>
+      {% else %}
+      <p class="notebook-empty">No notes yet. Write your first one with <code>npm run new "My title"</code>, then run <code>npm run serve</code>.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>

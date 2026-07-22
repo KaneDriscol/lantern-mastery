@@ -1,0 +1,38 @@
+---
+layout: base.njk
+# Generates one archive page per category, e.g. /tag/dueling/.
+# Driven by site.categories (in src/_data/site.json) — nothing to maintain here.
+pagination:
+  data: site.categories
+  size: 1
+  alias: category
+permalink: "/tag/{{ category | catSlug }}/"
+eleventyComputed:
+  title: "{{ category }}"
+---
+<section class="notebook">
+  <div class="container">
+    <div class="notebook-head">
+      <h1>{{ category }}</h1>
+      <p>Notes filed under {{ category }}.</p>
+    </div>
+    <div class="notebook-list">
+      {% set posts = collections.post | reverse %}
+      {% set count = 0 %}
+      {% for post in posts %}
+      {% if post.data.tag == category %}
+      {% set count = count + 1 %}
+      <a href="{{ post.url | url }}" class="notebook-entry">
+        <div class="note-tag">{{ post.data.tag }}</div>
+        <h2>{{ post.data.title }}</h2>
+        {% if post.data.excerpt %}<p class="note-excerpt">{{ post.data.excerpt }}</p>{% endif %}
+        <div class="note-date">{{ post.date | readableDate }}{% if post.data.readingTime %} · {{ post.data.readingTime }}{% endif %}</div>
+      </a>
+      {% endif %}
+      {% endfor %}
+      {% if count == 0 %}
+      <p class="notebook-empty">No notes filed under {{ category }} yet.</p>
+      {% endif %}
+    </div>
+  </div>
+</section>

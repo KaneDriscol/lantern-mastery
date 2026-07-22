@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<!-- @template name="Lantern Website" description="Multi-page Lantern site: Resources, Training material, and Blog (with article view), composed from the design system components." -->
+<helmet>
+<script src="./ds-base.js"></script>
+<style>body{margin:0}a.navlink:hover{color:var(--ink)!important}</style>
+</helmet>
+<div style="background:var(--canvas);min-height:100vh;font-family:var(--font-sans)">
+  <div style="height:64px;background:var(--canvas);display:flex;align-items:center;justify-content:space-between;padding:0 32px;border-bottom:1px solid var(--hairline);position:sticky;top:0;z-index:10">
+    <div style="display:flex;align-items:flex-end;gap:5px">
+      <img src="../../assets/lantern-mark.svg" width="26" height="26" style="filter:invert(0.35) sepia(1) saturate(3) hue-rotate(-20deg)" alt="Lantern">
+      <span style="font-family:var(--font-serif-display);font-size:20px;color:var(--ink);line-height:1">Lantern</span>
+    </div>
+    <div style="display:flex;gap:24px">
+      <a class="navlink" onClick="{{ navResources }}" style="cursor:pointer;text-decoration:none;font-size:14px;font-weight:500;color:{{ resourcesColor }}">Resources</a>
+      <a class="navlink" onClick="{{ navTraining }}" style="cursor:pointer;text-decoration:none;font-size:14px;font-weight:500;color:{{ trainingColor }}">Training</a>
+      <a class="navlink" onClick="{{ navBlog }}" style="cursor:pointer;text-decoration:none;font-size:14px;font-weight:500;color:{{ blogColor }}">Blog</a>
+    </div>
+    <x-import component-from-global-scope="LanternDesignSystem_b388cd.Button" variant="primary" onClick="{{ navTraining }}" hint-size="130px,40px">Start a drill</x-import>
+  </div>
+
+  <sc-if value="{{ isResources }}" hint-placeholder-val="{{ true }}">
+  <div style="max-width:1120px;margin:0 auto;padding:72px 32px 96px">
+    <div style="max-width:640px;margin-bottom:48px">
+      <h1 style="font-family:var(--font-serif-display);font-size:var(--display-lg-size);line-height:var(--display-lg-line);letter-spacing:var(--display-lg-tracking);color:var(--ink);margin:0 0 16px">A shelf worth keeping</h1>
+      <p style="font-size:var(--body-md-size);line-height:var(--body-md-line);color:var(--body);margin:0">These are the places we send students when they want to go past what we cover in the hall. Some are archives, some are communities, and a few are just the books we keep coming back to.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-bottom:64px">
+      <sc-for list="{{ resources }}" as="r" hint-placeholder-count="4">
+        <x-import component-from-global-scope="LanternDesignSystem_b388cd.ResourceConnectorTile" name="{{ r.name }}" description="{{ r.description }}" hint-size="100%,132px"></x-import>
+      </sc-for>
+    </div>
+    <h2 style="font-family:var(--font-serif-display);font-size:var(--display-sm-size);letter-spacing:var(--display-sm-tracking);color:var(--ink);margin:0 0 24px">Straight from the sources</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+      <sc-for list="{{ sources }}" as="s" hint-placeholder-count="2">
+        <x-import component-from-global-scope="LanternDesignSystem_b388cd.SourceReferenceCard" source-name="{{ s.sourceName }}" author="{{ s.author }}" date="{{ s.date }}" excerpt="{{ s.excerpt }}" hint-size="100%,170px"></x-import>
+      </sc-for>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ isTraining }}" hint-placeholder-val="{{ false }}">
+  <div style="max-width:1120px;margin:0 auto;padding:72px 32px 96px">
+    <div style="max-width:640px;margin-bottom:48px">
+      <h1 style="font-family:var(--font-serif-display);font-size:var(--display-lg-size);line-height:var(--display-lg-line);letter-spacing:var(--display-lg-tracking);color:var(--ink);margin:0 0 16px">Training material</h1>
+      <p style="font-size:var(--body-md-size);line-height:var(--body-md-line);color:var(--body);margin:0">Start with the fundamentals, then work outward. Every drill here traces back to a source, and every source is named so you can read it yourself.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:64px">
+      <sc-for list="{{ features }}" as="f" hint-placeholder-count="3">
+        <x-import component-from-global-scope="LanternDesignSystem_b388cd.FeatureCard" title="{{ f.title }}" description="{{ f.description }}" hint-size="100%,150px"></x-import>
+      </sc-for>
+    </div>
+    <h2 style="font-family:var(--font-serif-display);font-size:var(--display-sm-size);letter-spacing:var(--display-sm-tracking);color:var(--ink);margin:0 0 24px">Track your practice</h2>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:64px">
+      <sc-for list="{{ drills }}" as="d" hint-placeholder-count="3">
+        <x-import component-from-global-scope="LanternDesignSystem_b388cd.PracticeTrackerCard" drill-name="{{ d.drillName }}" date="{{ d.date }}" progress="{{ d.progress }}" notes="{{ d.notes }}" hint-size="100%,150px"></x-import>
+      </sc-for>
+    </div>
+    <h2 style="font-family:var(--font-serif-display);font-size:var(--display-sm-size);letter-spacing:var(--display-sm-tracking);color:var(--ink);margin:0 0 24px">Compare the schools</h2>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+      <sc-for list="{{ comparisons }}" as="c" hint-placeholder-count="3">
+        <x-import component-from-global-scope="LanternDesignSystem_b388cd.ComparisonCard" name="{{ c.name }}" summary="{{ c.summary }}" hint-size="100%,150px"></x-import>
+      </sc-for>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ isBlog }}" hint-placeholder-val="{{ false }}">
+  <div style="max-width:1120px;margin:0 auto;padding:72px 32px 96px">
+    <div style="max-width:640px;margin-bottom:48px">
+      <h1 style="font-family:var(--font-serif-display);font-size:var(--display-lg-size);line-height:var(--display-lg-line);letter-spacing:var(--display-lg-tracking);color:var(--ink);margin:0 0 16px">Notes from the hall</h1>
+      <p style="font-size:var(--body-md-size);line-height:var(--body-md-line);color:var(--body);margin:0">Longer thinking on technique, history, and what keeps pulling us back to the woods each season. Written for fellow fencers, not a general audience.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+      <sc-for list="{{ posts }}" as="p" hint-placeholder-count="4">
+        <div onClick="{{ p.open }}" style="background:var(--canvas);border:1px solid var(--hairline);border-radius:var(--radius-lg);padding:var(--space-xl);cursor:pointer;display:flex;flex-direction:column;gap:12px">
+          <div><x-import component-from-global-scope="LanternDesignSystem_b388cd.Badge" variant="pill" hint-size="90px,24px">{{ p.tag }}</x-import></div>
+          <div style="font-family:var(--font-serif-display);font-size:var(--display-sm-size);line-height:var(--display-sm-line);letter-spacing:var(--display-sm-tracking);color:var(--ink)">{{ p.title }}</div>
+          <div style="font-size:var(--body-md-size);line-height:var(--body-md-line);color:var(--body)">{{ p.excerpt }}</div>
+          <div style="font-size:var(--caption-size);color:var(--muted);margin-top:4px">{{ p.byline }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ isPost }}" hint-placeholder-val="{{ false }}">
+  <div style="max-width:680px;margin:0 auto;padding:56px 32px 96px">
+    <a class="navlink" onClick="{{ navBlog }}" style="cursor:pointer;text-decoration:none;font-size:14px;font-weight:500;color:var(--primary)">&larr; Back to the journal</a>
+    <div style="margin:28px 0 8px"><x-import component-from-global-scope="LanternDesignSystem_b388cd.Badge" variant="pill" hint-size="90px,24px">{{ post.tag }}</x-import></div>
+    <h1 style="font-family:var(--font-serif-display);font-size:var(--display-lg-size);line-height:var(--display-lg-line);letter-spacing:var(--display-lg-tracking);color:var(--ink);margin:0 0 16px">{{ post.title }}</h1>
+    <div style="font-size:var(--caption-size);color:var(--muted);margin-bottom:40px">{{ post.byline }}</div>
+    <p style="font-size:18px;line-height:1.7;color:var(--body-strong);margin:0 0 24px">I have a habit of showing up to practice early, before anyone else, just to stand in the empty hall for a minute. It is a small thing, and I don't make much of it, but that quiet is where most of what I understand about fencing has actually settled.</p>
+    <p style="font-size:18px;line-height:1.7;color:var(--body);margin:0 0 24px">Last week an apprentice asked me why we drill the same cut for months before we ever spar with it. It is the obvious question, and I don't mean that as a dismissal, it is the question everyone arrives with. The honest answer is that speed without control is just haste, and haste loses to anyone patient enough to wait for it.</p>
+    <h2 style="font-family:var(--font-serif-display);font-size:var(--display-sm-size);letter-spacing:var(--display-sm-tracking);color:var(--ink);margin:40px 0 16px">What the source actually says</h2>
+    <p style="font-size:18px;line-height:1.7;color:var(--body);margin:0 0 24px">Meyer is careful here, and I think we lose something when we skim past it. He does not tell you to cut fast. He tells you to cut so that you are already prepared for the answer, which is a different instruction entirely, and one that takes years to feel rather than understand.</p>
+    <div style="margin:32px 0"><x-import component-from-global-scope="LanternDesignSystem_b388cd.SourceReferenceCard" source-name="Fechtbuch" author="Joachim Meyer" date="1570" excerpt="Practice this cut until it is second nature, for speed without control is merely haste." hint-size="100%,170px"></x-import></div>
+    <p style="font-size:18px;line-height:1.7;color:var(--body);margin:0 0 24px">So we drill. Not because repetition is virtuous on its own, but because it is the only way I know to move a technique from the front of your mind to the back of your hand. Doing leads to learning. Learning leads to knowing. Knowing is what lets you stop thinking about the cut and start reading your opponent.</p>
+    <p style="font-size:18px;line-height:1.7;color:var(--body);margin:0 0 32px">That is the pattern.</p>
+    <x-import component-from-global-scope="LanternDesignSystem_b388cd.Button" variant="primary" onClick="{{ navTraining }}" hint-size="150px,40px">Try this drill</x-import>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ showCta }}" hint-placeholder-val="{{ true }}">
+  <div style="max-width:1120px;margin:0 auto;padding:0 32px 96px">
+    <x-import component-from-global-scope="LanternDesignSystem_b388cd.CtaBand" variant="bronze" title="Where will you begin?" subline="Pick one drill and log your first session. The first entry is the hardest one." hint-size="100%,300px">
+      <x-import component-from-global-scope="LanternDesignSystem_b388cd.Button" variant="secondary-on-dark" onClick="{{ navTraining }}" hint-size="150px,40px">Start with the fundamentals</x-import>
+    </x-import>
+  </div>
+  </sc-if>
+
+  <x-import component-from-global-scope="LanternDesignSystem_b388cd.Footer" hint-size="100%,340px"></x-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1120,&quot;height&quot;:760}}">
+class Component extends DCLogic {
+  state = { page: 'resources', postId: 1 };
+
+  go(page) { this.setState({ page }); window.scrollTo(0, 0); }
+  openPost(id) { this.setState({ page: 'post', postId: id }); window.scrollTo(0, 0); }
+
+  renderVals() {
+    const page = this.state.page;
+    const posts = [
+      { id: 1, tag: 'Reflection', title: 'The quiet before the cut', excerpt: 'Why we stand in an empty hall, and what months of drilling the same cut are actually for.', byline: 'Captain Aldous, Jul 14 2026, 6 min read' },
+      { id: 2, tag: 'Framework', title: 'Prudence over speed', excerpt: 'Control precedes tempo. A short piece on reading the bind before you ever commit to the strike.', byline: 'Captain Aldous, Jul 2 2026, 5 min read' },
+      { id: 3, tag: 'Study', title: 'Two schools, one measure', excerpt: 'I spent a season comparing how the Italian and German masters teach distance. The surprise was how much they agree.', byline: 'Apprentice Wren, Jun 20 2026, 8 min read' },
+      { id: 4, tag: 'History', title: 'Reading Meyer without flinching', excerpt: 'One of the earliest surviving longsword manuals, and how to study it without inventing what it does not say.', byline: 'Captain Aldous, Jun 6 2026, 7 min read' },
+    ];
+    posts.forEach(p => { p.open = () => this.openPost(p.id); });
+    const post = posts.find(p => p.id === this.state.postId) || posts[0];
+
+    const navColor = (p) => (p === page ? 'var(--ink)' : 'var(--muted)');
+
+    return {
+      isResources: page === 'resources',
+      isTraining: page === 'training',
+      isBlog: page === 'blog',
+      isPost: page === 'post',
+      showCta: page !== 'post',
+      resourcesColor: navColor('resources'),
+      trainingColor: navColor('training'),
+      blogColor: navColor('blog'),
+      navResources: () => this.go('resources'),
+      navTraining: () => this.go('training'),
+      navBlog: () => this.go('blog'),
+      posts,
+      post,
+      resources: [
+        { name: 'Wiktenauer', description: 'The digitized archive of historical fencing manuscripts. Start here.' },
+        { name: 'HEMA Alliance', description: 'Community tournament index, ratings, and event calendar.' },
+        { name: 'Glossary', description: 'Terminology across the Italian, German, and Spanish schools.' },
+        { name: 'Reading list', description: 'The books we keep coming back to, primary and secondary.' },
+      ],
+      sources: [
+        { sourceName: 'Fechtbuch', author: 'Joachim Meyer', date: '1570', excerpt: 'Practice this cut until it is second nature, for speed without control is merely haste.' },
+        { sourceName: 'Flos Duellatorum', author: 'Fiore dei Liberi', date: '1409', excerpt: 'Play is the foundation upon which all art is built.' },
+      ],
+      features: [
+        { title: 'Start with the fundamentals', description: 'Guards, measure, and the four openings before you ever pick up tempo.' },
+        { title: 'One drill at a time', description: 'Each drill traces to a named source, so you can read the reasoning yourself.' },
+        { title: 'Study the whole tradition', description: 'Work the Italian, German, and Spanish schools side by side, not in isolation.' },
+      ],
+      drills: [
+        { drillName: 'Oberhau drill', date: 'Jul 14 2026', progress: 70, notes: 'Felt cleaner today.' },
+        { drillName: 'Zwerchhau: bind recovery', date: 'Jul 11 2026', progress: 45, notes: 'Still rushing the recovery step.' },
+        { drillName: 'Footwork: passing step', date: 'Jul 8 2026', progress: 90, notes: '' },
+      ],
+      comparisons: [
+        { name: 'Longsword vs. rapier', summary: 'Two-handed leverage against single-hand tempo and reach.' },
+        { name: 'Oberhau vs. Zwerchhau', summary: 'A descending cut compared to the horizontal cross-cut.' },
+        { name: 'Italian vs. German guard', summary: "Two schools' approach to measure and initiative." },
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>

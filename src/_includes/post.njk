@@ -1,0 +1,17 @@
+---
+layout: base.njk
+---
+<article class="post">
+  <div class="container post-inner">
+    <a href="{{ '/' | url }}" class="post-back">← Back to the notebook</a>
+    {% if tag %}<span class="badge">{{ tag }}</span>{% endif %}
+    <h1 class="post-title">{{ title }}</h1>
+    <div class="post-meta">
+      <time datetime="{{ page.date | isoDate }}">{{ page.date | readableDate }}</time>
+      {% if readingTime %} · {{ readingTime }}{% endif %}
+    </div>
+    <div class="post-body">
+      {{ content | safe }}
+    </div>
+  </div>
+</article>
