@@ -19,12 +19,27 @@ function scPrint(id) {
   document.body.appendChild(root);
   document.body.classList.add("sc-printing");
 
+  // iOS Safari fires `afterprint` immediately after window.print() returns
+  // — well before the system print sheet has actually rendered the page —
+  // so cleaning up on that event alone reverts the DOM before iOS captures
+  // it, and the sheet ends up showing the whole page instead of just the
+  // card. Regaining window focus (closing the sheet) is the reliable
+  // signal there; `afterprint` still covers desktop, and the timeout is a
+  // last-resort safety net.
+  let cleaned = false;
   const cleanup = () => {
+    if (cleaned) return;
+    cleaned = true;
     document.body.classList.remove("sc-printing");
     root.remove();
     window.removeEventListener("afterprint", cleanup);
+    window.removeEventListener("focus", cleanup);
+    clearTimeout(safety);
   };
   window.addEventListener("afterprint", cleanup);
+  window.addEventListener("focus", cleanup);
+  const safety = setTimeout(cleanup, 60000);
+
   window.print();
 }
 
@@ -44,6 +59,15 @@ function scLoadHtml2Canvas() {
     });
   }
   return scHtml2CanvasPromise;
+}
+
+// Warm the library on page load, off the click path. navigator.share()
+// (used below for the mobile PNG save) only works within a short window
+// after the user's tap — if we waited to fetch html2canvas until the
+// button was clicked, that network request alone could burn through the
+// window before the share call, especially on a slow connection.
+if (document.querySelector(".sc-print-btn")) {
+  scLoadHtml2Canvas().catch(() => {});
 }
 
 // Saves the card as a PNG sized for a phone, not whatever width the live
@@ -84,11 +108,37 @@ function scSavePng(id, name) {
         letterRendering: true,
       })
     )
-    .then((canvas) => {
+    .then(
+      (canvas) =>
+        new Promise((resolve, reject) => {
+          canvas.toBlob((blob) => {
+            if (blob) resolve(blob);
+            else reject(new Error("toBlob failed"));
+          }, "image/png");
+        })
+    )
+    .then((blob) => {
+      const filename = `${name || "resource"}.png`;
+
+      // iOS Safari has never supported the `download` attribute — a
+      // programmatic <a download> there just navigates to the image and
+      // shows an Open/Download prompt that doesn't actually save it. The
+      // share sheet's "Save Image" is the reliable way to get the PNG onto
+      // the device, so prefer it whenever the platform can share a file.
+      const file = new File([blob], filename, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        return navigator.share({ files: [file] }).catch((err) => {
+          if (err && err.name === "AbortError") return;
+          throw err;
+        });
+      }
+
+      const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
-      link.download = `${name || "resource"}.png`;
-      link.href = canvas.toDataURL("image/png");
+      link.download = filename;
+      link.href = url;
       link.click();
+      setTimeout(() => URL.revokeObjectURL(url), 30000);
     })
     .catch(() => {
       alert("Couldn't save the image — check your connection and try again.");

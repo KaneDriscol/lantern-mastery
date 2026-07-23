@@ -7,6 +7,7 @@
 {% if description %}<meta name="description" content="{{ description }}">{% endif %}
 <link rel="stylesheet" href="{{ '/css/site.css' | cacheBust | url }}">
 <script src="{{ '/js/print.js' | cacheBust | url }}" defer></script>
+<script src="{{ '/js/nav.js' | cacheBust | url }}" defer></script>
 </head>
 <body>
 
@@ -15,7 +16,13 @@
     {% include "lantern-mark.njk" %}
     <span>{{ site.title }}</span>
   </a>
-  <nav class="nav-links">
+  <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="primary-nav">
+    <span class="nav-toggle-bar"></span>
+    <span class="nav-toggle-bar"></span>
+    <span class="nav-toggle-bar"></span>
+    <span class="sr-only">Menu</span>
+  </button>
+  <nav class="nav-links" id="primary-nav">
     {% for category in site.categories %}
       {% set catUrl = "/tag/" + (category | catSlug) + "/" %}
       <a href="{{ catUrl | url }}"{% if page.url == catUrl %} class="active"{% endif %}>{{ category }}</a>
