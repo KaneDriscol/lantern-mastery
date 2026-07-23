@@ -1,7 +1,7 @@
 ---
 title: Three Principles of Dueling in a Melee
 tag: Melee
-date: 2026-07-22
+date: 2026-07-21
 readingTime: 5 min
 excerpt: You may be in a melee, but that doesn’t mean you aren’t going to end up in a duel. Unfortunately, if you treat it like a duel, you’re asking for trouble.
 ---
