@@ -20,6 +20,9 @@
       {% set catUrl = "/tag/" + (category | catSlug) + "/" %}
       <a href="{{ catUrl | url }}"{% if page.url == catUrl %} class="active"{% endif %}>{{ category }}</a>
     {% endfor %}
+    <a href="{{ '/principles/' | url }}"{% if page.url == '/principles/' %} class="active"{% endif %}>Principles</a>
+    <a href="{{ '/drills/' | url }}"{% if page.url == '/drills/' %} class="active"{% endif %}>Drills</a>
+    <a href="{{ '/practice-logs/' | url }}"{% if page.url == '/practice-logs/' %} class="active"{% endif %}>Practice Logs</a>
   </nav>
 </header>
 
@@ -40,6 +43,9 @@
         {% for category in site.categories %}
           <a href="{{ ('/tag/' + (category | catSlug) + '/') | url }}">{{ category }}</a>
         {% endfor %}
+        <a href="{{ '/principles/' | url }}">Principles</a>
+        <a href="{{ '/drills/' | url }}">Drills</a>
+        <a href="{{ '/practice-logs/' | url }}">Practice Logs</a>
       </div>
     </div>
     {% if site.quote %}

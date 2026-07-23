@@ -10,6 +10,29 @@ layout: base.njk
   </div>
 </section>
 
+{% if featuredPrinciples.length %}
+{% set items = [] %}
+{% for p in featuredPrinciples %}
+  {% set _ = items.push({ statement: p.statement, tag: p.post.tag, title: p.post.title, url: (p.post.url | url) }) %}
+{% endfor %}
+<section class="home-principles">
+  <div class="container">
+    <div class="principle-rotator sc-principle" id="principle-rotator" data-principles='{{ items | dump | safe }}'>
+      <span class="sc-principle-label">Principle · <a class="principle-rotator-source" id="principle-rotator-source" href="{{ items[0].url }}">{{ items[0].title }}</a></span>
+      <p class="sc-principle-statement" id="principle-rotator-statement">{{ items[0].statement }}</p>
+      {% if items.length > 1 %}
+      <div class="principle-rotator-dots" id="principle-rotator-dots">
+        {% for item in items %}
+        <button type="button" class="principle-rotator-dot{% if loop.index0 == 0 %} active{% endif %}" aria-label="Show principle {{ loop.index }}" data-index="{{ loop.index0 }}"></button>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+<script src="{{ '/js/principles.js' | cacheBust | url }}" defer></script>
+{% endif %}
+
 <section class="notebook">
   <div class="container">
     <div class="notebook-list">

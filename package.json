@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Kane's fencing (HEMA) working notebook — a static site built from Markdown with Eleventy.",
   "private": true,
+  "type": "module",
   "scripts": {
     "build": "eleventy",
     "serve": "eleventy --serve",
