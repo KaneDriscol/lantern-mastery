@@ -1,0 +1,27 @@
+---
+layout: base.njk
+title: Practice Logs
+# One card per {% practicelog %} ever used in a post — see
+# src/_data/practicelogs.js. Nothing to maintain here; write a post with a
+# {% practicelog %} in it and it shows up on the next build.
+---
+<section class="notebook">
+  <div class="container">
+    <div class="notebook-head">
+      <h1>Practice Logs</h1>
+      <p>Every practice log logged so far, pulled straight from the notes that named them.</p>
+    </div>
+    <div class="library-gallery">
+      {% for p in practicelogs %}
+      <a href="{{ p.post.url | url }}" class="practicelog-card">
+        <span class="practicelog-card-badge">Practice · {{ p.post.tag }} · {{ p.post.date | readableDate }}</span>
+        <div class="practicelog-card-title">{{ p.title }}</div>
+        <div class="practicelog-card-body">{{ p.body | md | safe }}</div>
+        <div class="library-card-source">From “{{ p.post.title }}” →</div>
+      </a>
+      {% else %}
+      <p class="notebook-empty">No practice logs yet. Drop a <code>{% raw %}{% practicelog %}{% endraw %}</code> into a post and it'll show up here.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,26 @@
+---
+layout: base.njk
+title: Principles
+# One card per {% principle %} ever used in a post — see src/_data/principles.js.
+# Nothing to maintain here; write a post with a {% principle %} in it and it
+# shows up on the next build.
+---
+<section class="notebook">
+  <div class="container">
+    <div class="notebook-head">
+      <h1>Principles</h1>
+      <p>Every principle logged so far, pulled straight from the notes that named them.</p>
+    </div>
+    <div class="library-gallery">
+      {% for p in principles %}
+      <a href="{{ p.post.url | url }}" class="principle-card sc-principle">
+        <span class="sc-principle-label">{{ p.post.tag }} · {{ p.post.date | readableDate }}</span>
+        <p class="sc-principle-statement">{{ p.statement }}</p>
+        <div class="library-card-source">From “{{ p.post.title }}” →</div>
+      </a>
+      {% else %}
+      <p class="notebook-empty">No principles logged yet. Drop a <code>{% raw %}{% principle %}{% endraw %}</code> into a post and it'll show up here.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>

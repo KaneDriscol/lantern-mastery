@@ -1,0 +1,27 @@
+---
+layout: base.njk
+title: Drills
+# One card per {% drill %} ever used in a post — see src/_data/drills.js.
+# Nothing to maintain here; write a post with a {% drill %} in it and it
+# shows up on the next build.
+---
+<section class="notebook">
+  <div class="container">
+    <div class="notebook-head">
+      <h1>Drills</h1>
+      <p>Every drill logged so far, pulled straight from the notes that named them.</p>
+    </div>
+    <div class="library-gallery">
+      {% for d in drills %}
+      <a href="{{ d.post.url | url }}" class="drill-card sc-drill">
+        <span class="sc-drill-label">Drill · {{ d.post.tag }} · {{ d.post.date | readableDate }}</span>
+        <div class="sc-drill-title">{{ d.title }}</div>
+        <div class="sc-drill-body">{{ d.steps | md | safe }}</div>
+        <div class="library-card-source">From “{{ d.post.title }}” →</div>
+      </a>
+      {% else %}
+      <p class="notebook-empty">No drills logged yet. Drop a <code>{% raw %}{% drill %}{% endraw %}</code> into a post and it'll show up here.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>

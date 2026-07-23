@@ -71,6 +71,11 @@ export default function (eleventyConfig) {
       .replace(/^-+|-+$/g, "")
   );
 
+  // Renders a chunk of Markdown to HTML — used by the library gallery pages
+  // (drills, practice logs) to render the content pulled out of a post's
+  // shortcode. Same renderer the shortcodes themselves use.
+  eleventyConfig.addFilter("md", (value) => block(value));
+
   // ---------------------------------------------------------------------------
   // Shortcodes — reusable styled blocks you can drop into any post.
   // See SHORTCODES.md for copy-paste examples of every one of these.

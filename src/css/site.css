@@ -466,6 +466,36 @@ body {
   margin: 0;
 }
 
+/* ---------- Home featured-principle rotator ---------- */
+
+.home-principles { background: var(--canvas); padding: 40px 0 8px; }
+
+.principle-rotator { max-width: 620px; }
+.principle-rotator .sc-principle-statement { transition: opacity 0.2s ease; }
+.principle-rotator.is-fading .sc-principle-statement { opacity: 0; }
+
+.principle-rotator-source {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  opacity: 0.85;
+}
+.principle-rotator-source:hover { opacity: 1; }
+
+.principle-rotator-dots { display: flex; gap: 8px; margin-top: 22px; }
+.principle-rotator-dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: var(--on-primary);
+  opacity: 0.35;
+  cursor: pointer;
+}
+.principle-rotator-dot:hover { opacity: 0.6; }
+.principle-rotator-dot.active { opacity: 1; }
+
 /* ---------- Single post / article ---------- */
 
 .post { background: var(--canvas); padding: 64px 0 96px; }
@@ -1018,6 +1048,80 @@ body {
   body.sc-printing #sc-print-root { display: block !important; margin: 0; }
   body.sc-printing #sc-print-root > * { max-width: 720px; margin: 0 auto; }
 }
+
+/* ---------- Library galleries (principles, drills, practice logs) ---------- */
+/* Shared grid + link-card treatment for every {% shortcode %}-collected
+   gallery. Each card keeps the visual style of its source shortcode
+   (.sc-principle, .sc-drill, ...) so a card reads the same here as it does
+   inside the post it came from. */
+
+.library-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+  max-width: 1040px;
+  align-items: start;
+}
+.principle-card,
+.drill-card,
+.practicelog-card {
+  display: block;
+  text-decoration: none;
+  transition: transform 0.15s ease;
+}
+.principle-card:hover,
+.drill-card:hover,
+.practicelog-card:hover { transform: translateY(-2px); }
+
+.library-card-source {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  opacity: 0.75;
+  margin-top: 18px;
+}
+.principle-card .library-card-source { color: var(--on-primary); }
+.drill-card .library-card-source { color: var(--on-dark-soft); }
+.practicelog-card .library-card-source { color: var(--muted); }
+
+.drill-card .sc-drill-body { max-height: 220px; overflow: hidden; -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%); mask-image: linear-gradient(to bottom, black 70%, transparent 100%); }
+
+/* practicelog-card is a lighter-weight gallery card than the full
+   printable sc-practicelog resource template — just enough to browse by. */
+.practicelog-card {
+  background: var(--surface-card);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+  padding: 32px 28px;
+}
+.practicelog-card-badge {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: var(--caption-upper-size);
+  font-weight: var(--caption-upper-weight);
+  letter-spacing: var(--caption-upper-tracking);
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+.practicelog-card-title {
+  font-family: var(--font-serif-display);
+  font-size: 22px;
+  line-height: 1.2;
+  letter-spacing: -0.3px;
+  color: var(--ink);
+  margin-bottom: 12px;
+}
+.practicelog-card-body {
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--body);
+  max-height: 180px;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom, black 65%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 65%, transparent 100%);
+}
+.practicelog-card-body ul { padding-left: 20px; margin: 0; }
+.practicelog-card-body li + li { margin-top: 6px; }
 
 /* ---------- Notebook index (full post list) ---------- */
 
